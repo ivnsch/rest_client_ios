@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>A4E6C2D6-E18C-466B-96A9-640C807497BC</string>
+	<key>IDESourceControlProjectName</key>
+	<string>clojushop_client_ios</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>85A26F42-2B9B-484A-A170-F71196D6EC47</key>
+		<string>https://github.com/i-schuetz/clojushop_client_ios.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>clojushop_client_ios.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>85A26F42-2B9B-484A-A170-F71196D6EC47</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/i-schuetz/clojushop_client_ios.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>85A26F42-2B9B-484A-A170-F71196D6EC47</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>85A26F42-2B9B-484A-A170-F71196D6EC47</string>
+			<key>IDESourceControlWCCName</key>
+			<string>clojushop_client_ios</string>
+		</dict>
+	</array>
+</dict>
+</plist>

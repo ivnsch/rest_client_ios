@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="6154.17" systemVersion="13D65" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6153.11"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProductDetailViewController" customModule="clojushop_client_ios" customModuleProvider="target">
+            <connections>
+                <outlet property="addToCartButton" destination="aBS-Mg-NLD" id="15J-nV-oga"/>
+                <outlet property="containerView" destination="1xL-Dv-iz4" id="Jc6-qs-jlv"/>
+                <outlet property="pleaseSelectView" destination="5RQ-xa-5Xm" id="x2E-qD-e0v"/>
+                <outlet property="productBrandLabel" destination="pI5-25-X8c" id="TPz-gQ-Znf"/>
+                <outlet property="productImageview" destination="vyE-0y-cDn" id="juj-NI-IF2"/>
+                <outlet property="productLongDescrLabel" destination="iFO-xJ-qlD" id="81j-cI-FDf"/>
+                <outlet property="productNameLabel" destination="9eq-fN-Wtd" id="hpN-ax-iqg"/>
+                <outlet property="productPriceLabel" destination="WLm-Y8-2Hi" id="FHB-aM-Wes"/>
+                <outlet property="view" destination="vaR-2Z-jyH" id="6nG-Ba-xt8"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="vaR-2Z-jyH">
+            <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1xL-Dv-iz4">
+                    <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vyE-0y-cDn">
+                            <rect key="frame" x="0.0" y="0.0" width="768" height="491"/>
+                        </imageView>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9eq-fN-Wtd">
+                            <rect key="frame" x="233" y="505" width="303" height="45"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Seller" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pI5-25-X8c">
+                            <rect key="frame" x="233" y="563" width="303" height="44"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Price" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WLm-Y8-2Hi">
+                            <rect key="frame" x="233" y="615" width="303" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Long description" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="303" translatesAutoresizingMaskIntoConstraints="NO" id="iFO-xJ-qlD">
+                            <rect key="frame" x="233" y="672" width="303" height="33"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aBS-Mg-NLD">
+                            <rect key="frame" x="297" y="747" width="175" height="30"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                            <state key="normal" title="Add to cart">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="onAddToCartPress:" destination="-1" eventType="touchUpInside" id="tLR-3T-dkp"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="768" id="FGw-5r-eJd"/>
+                        <constraint firstAttribute="height" constant="1024" id="oay-97-OS1"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5RQ-xa-5Xm">
+                    <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                    <subviews>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Please select an item" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HZ7-5T-6bl">
+                            <rect key="frame" x="233" y="482" width="303" height="60"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="1xL-Dv-iz4" secondAttribute="bottom" id="1ev-1D-ZWm"/>
+                <constraint firstAttribute="trailing" secondItem="1xL-Dv-iz4" secondAttribute="trailing" id="6SB-ZM-DD8"/>
+                <constraint firstItem="1xL-Dv-iz4" firstAttribute="leading" secondItem="vaR-2Z-jyH" secondAttribute="leading" id="90W-yG-3hq"/>
+                <constraint firstItem="1xL-Dv-iz4" firstAttribute="top" secondItem="vaR-2Z-jyH" secondAttribute="top" id="Utl-VF-zGH"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </scrollView>
+    </objects>
+</document>
