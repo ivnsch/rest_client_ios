@@ -4,7 +4,7 @@ rest_client_ios
 Rest client / shopping app for iOS written in Swift
 
 Basic functions - products list, product details, login, register, user account, logout, cart, payment. Products list has a core data caching layer.
-
+ 
 
 ![ScreenShot](https://raw.github.com/i-schuetz/rest_client_ios/master/cios_list.png)
 
