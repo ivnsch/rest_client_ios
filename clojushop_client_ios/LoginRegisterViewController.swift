@@ -40,7 +40,21 @@ class LoginRegisterViewController:BaseViewController {
         loginNameField.resignFirstResponder()
         loginPWField.resignFirstResponder()
     }
-  
+    
+    override func viewDidDisappear(animated: Bool) {
+        self.setProgressHidden(true) //clear possible progressbar we started last time showing user account. Do it here instad immediately after to avoid flickering on transition
+    }
+    
+    func getUser() {
+        
+        DataStore.sharedDataStore().getUser(
+            
+            {(user:User!) -> Void in
+                self.showUserAccountTab(user)
+                
+            }, failureHandler: {(Int) -> Bool in return false})
+    }
+    
     @IBAction func login(sender: UIButton) {
         let loginName:String = loginNameField.text
         let loginPW:String = loginPWField.text
@@ -49,23 +63,21 @@ class LoginRegisterViewController:BaseViewController {
         
         DataStore.sharedDataStore().login(loginName, password: loginPW, successHandler: {() -> Void in
 
-            self.setProgressHidden(true)
-            self.replaceWithAccountTab()
+            self.getUser()
             
             }, failureHandler: {(Int) -> Bool in
-                self.setProgressHidden(true)
                 return false})
     }
-    
     @IBAction func register(sender: UIButton) {
         let registerController:RegisterViewController = RegisterViewController(nibName: "RegisterViewController", bundle: nil)
         self.navigationController.pushViewController(registerController, animated: true)
     }
         
-    func replaceWithAccountTab() {
-        let accountController: UserAccountViewController = UserAccountViewController(nibName: "UserAccountViewController", bundle: nil)
+    func showUserAccountTab(user:User) {
+        let userAccountController: UserAccountViewController = UserAccountViewController(nibName: "UserAccountViewController", bundle: nil)
+        userAccountController.user = user
         self.navigationController.tabBarItem.title = "User account"
-        self.navigationController.pushViewController(accountController, animated: true)
+        self.navigationController.pushViewController(userAccountController, animated: true)
         self.navigationController.navigationBarHidden = true
     }
     

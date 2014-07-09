@@ -13,6 +13,8 @@ class UserAccountViewController: BaseViewController {
     @IBOutlet var nameField:UILabel!
     @IBOutlet var emailField:UILabel!
 
+    var user:User!
+    
     init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 
@@ -23,25 +25,38 @@ class UserAccountViewController: BaseViewController {
         super.viewDidLoad()
 
         self.view.backgroundColor = UIColor.whiteColor()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    override func viewDidAppear(animated: Bool) {
+        
         self.setProgressHidden(false)
+
+    }
+    
+    func initUserViews() {
+        self.nameField.text = user.name
+        self.emailField.text = user.email
+        
+        self.setProgressHidden(true)
+    }
+    
+    func getUser() {
         
         DataStore.sharedDataStore().getUser(
             
             {(user:User!) -> Void in
-                self.setProgressHidden(true)
                 
-                self.nameField.text = user.name
-                self.emailField.text = user.email
-//
+                self.user = user
+                
+                self.initUserViews()
+                
             }, failureHandler: {(Int) -> Bool in return false})
+    }
+    
+    
+    override func viewDidAppear(animated: Bool) {
+        if !user {
+            getUser()
+        } else {
+            self.initUserViews()
+        }
     }
     
     func logout() {
@@ -66,16 +81,4 @@ class UserAccountViewController: BaseViewController {
     @IBAction func onLogoutPress(sender: UIButton) {
         self.logout()
     }
-    
-
-    /*
-    // #pragma mark - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue?, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
