@@ -23,9 +23,9 @@ let JSON_KEY_DETAILS = "pd"
 @objc
 class Product {
     
-    let id:String, name:String, descr:String, seller:String, price:String, currency:String, imgList:String, imgDetails:String
+    let id:String, name:String, descr:String, seller:String, price:Double, currency:String, imgList:String, imgDetails:String
     
-    init(id:String, name:String, descr:String, seller:String, price:String, currency:String, imgList:String, imgDetails:String) {
+    init(id:String, name:String, descr:String, seller:String, price:Double, currency:String, imgList:String, imgDetails:String) {
 
         self.id = id
         self.name = name
@@ -43,12 +43,15 @@ class Product {
         let priceDictionary: NSDictionary = dict.objectForKey(JSON_KEY_PRICE) as NSDictionary
         let imgDictionary: NSDictionary = dict.objectForKey(JSON_KEY_IMAGE) as NSDictionary
         
+        let priceNSStr = priceDictionary.objectForKey(JSON_KEY_PRICE_VALUE) as NSString
+        let priceDouble:Double = (priceNSStr).doubleValue
+        
         self.init(
             id: dict.objectForKey(JSON_KEY_ID) as NSString as String,
             name: dict.objectForKey(JSON_KEY_NAME) as NSString as String,
             descr: dict.objectForKey(JSON_KEY_DESCRIPTION) as NSString as String,
             seller: dict.objectForKey(JSON_KEY_SELLER) as NSString as String,
-            price: priceDictionary.objectForKey(JSON_KEY_PRICE_VALUE) as NSString as String,
+            price: priceDouble,
             currency: priceDictionary.objectForKey(JSON_KEY_PRICE_CURRENCY) as NSString as String,
             imgList: imgDictionary.objectForKey(JSON_KEY_LIST) as NSString as String,
             imgDetails: imgDictionary.objectForKey(JSON_KEY_DETAILS) as NSString as String
@@ -57,12 +60,17 @@ class Product {
     
     
     class func createFromCD (productCD: ProductCD) -> Product {
+        
+        let price = productCD.price.doubleValue as Double
+        
+        let ordering = productCD.ordering.doubleValue as Double
+        
         let product = Product(
             id: productCD.id,
             name: productCD.name,
             descr: productCD.descr,
             seller:productCD.seller,
-            price: productCD.price,
+            price: price,
             currency: productCD.currency,
             imgList: productCD.img_pl,
             imgDetails: productCD.img_pd

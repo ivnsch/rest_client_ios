@@ -25,10 +25,10 @@ let JSON_KEY_CART_DETAILS = "pd"
 @objc
 class CartItem {
     
-    let id:String, name:String, descr:String, seller:String, price:String, currency:String, imgList:String, imgDetails:String
+    let id:String, name:String, descr:String, seller:String, price:Double, currency:String, imgList:String, imgDetails:String
     var quantity:Int
     
-    init(id:String, name:String, descr:String, seller:String, price:String, currency:String, quantity:Int, imgList:String, imgDetails:String) {
+    init(id:String, name:String, descr:String, seller:String, price:Double, currency:String, quantity:Int, imgList:String, imgDetails:String) {
         
         self.id = id
         self.name = name
@@ -46,12 +46,15 @@ class CartItem {
         let priceDictionary: NSDictionary = dict.objectForKey(JSON_KEY_CART_ITEM_PRICE) as NSDictionary
         let imgDictionary: NSDictionary = dict.objectForKey(JSON_KEY_CART_IMAGE) as NSDictionary
     
+        let priceNSStr = priceDictionary.objectForKey(JSON_KEY_CART_ITEM_PRICE_VALUE) as NSString
+        let priceDouble:Double = (priceNSStr).doubleValue
+        
         self.init(
             id: dict.objectForKey(JSON_KEY_CART_ITEM_ID) as NSString as String,
             name: dict.objectForKey(JSON_KEY_CART_ITEM_NAME) as NSString as String,
             descr: dict.objectForKey(JSON_KEY_DESCRIPTION) as NSString as String,
             seller: dict.objectForKey(JSON_KEY_SELLER) as NSString as String,
-            price: priceDictionary.objectForKey(JSON_KEY_CART_ITEM_PRICE_VALUE) as NSString as String,
+            price: priceDouble,
             currency: priceDictionary.objectForKey(JSON_KEY_CART_ITEM_PRICE_CURRENCY) as NSString as String,
             quantity: (dict.objectForKey(JSON_KEY_CART_ITEM_QUANTITY) as NSNumber).integerValue,
             imgList: imgDictionary.objectForKey(JSON_KEY_CART_LIST) as NSString as String,

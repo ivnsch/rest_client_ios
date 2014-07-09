@@ -50,7 +50,7 @@ class ProductDetailViewController: BaseViewController, ListViewControllerDelegat
         
         productNameLabel.text = product.name
         productBrandLabel.text = product.seller
-        productPriceLabel.text = product.price
+        productPriceLabel.text = String(product.price)
         
         productLongDescrLabel.text = product.descr
         productImageview.setImageWithURL(NSURL.URLWithString(product.imgDetails))

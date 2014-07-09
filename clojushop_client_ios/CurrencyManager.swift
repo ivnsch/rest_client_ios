@@ -17,15 +17,15 @@ class CurrencyManager {
     
     init() {
         //for now this is in the client. At some point server can send it to us in e.g. an initialisation block.
-        currencyMap["1"] = Currency(id: 1, format: "%@ €")
-        currencyMap["2"] = Currency(id: 2, format: "$ %@")
+        currencyMap["1"] = Currency(id: 1, format: "%.2f €")
+        currencyMap["2"] = Currency(id: 2, format: "$ %.2f")
     }
     
     class func sharedCurrencyManager() -> CurrencyManager {
         return CurrencyManager() //for now return a new instance
     }
     
-    func getFormattedPrice(price: String, currencyId: String) -> String {
+    func getFormattedPrice(price: Double, currencyId: String) -> String {
         let currencyFormat = currencyMap[currencyId]!.format
         return String(format: currencyFormat, price)
     }

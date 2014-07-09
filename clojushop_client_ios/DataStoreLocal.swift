@@ -88,6 +88,12 @@ class DataStoreLocal {
     }
     
     func saveProduct(product:Product, ordering: Double) {
+        
+//        let price:Double = 1.0
+//        let price:Double = product.price
+        
+        
+        
         let productCD:ProductCD = NSEntityDescription.insertNewObjectForEntityForName("ProductCD", inManagedObjectContext: context) as ProductCD
         productCD.id = product.id;
         productCD.name = product.name;

@@ -10,6 +10,11 @@ import Foundation
 
 class CartQuantityItem: SingleSelectionItem {
     
+    //For some reason type alias here doesn't work (see SingleSelectionItem and CartViewController)
+    //when we use generics the caller will say getWrappedItem() doesn't exist  FIXME?
+    //also tried removing typealias definition here, since it doesn't seen to be necessary, no effect
+//    typealias WrappedItemType = Int
+
     let quantity:Int
     
     init(quantity:Int) {
@@ -20,6 +25,7 @@ class CartQuantityItem: SingleSelectionItem {
         return String(self.quantity)
     }
     
+//    func getWrappedItem() -> Int {
     func getWrappedItem() -> AnyObject {
         return quantity
     }

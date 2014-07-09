@@ -18,12 +18,16 @@ class CartViewController: BaseViewController, UITableViewDataSource, UITableView
     @IBOutlet var totalView: UILabel!
     
     var quantityPicker: SingleSelectionViewController!
+//    var quantityPicker: SingleSelectionViewController<CartItem>!
+    
     var quantityPickerPopover: UIPopoverController!
     
     var items: CartItem[] = []
-    var showingController: Bool! = false //quickfix to avoid reloading when coming back from quantity controller... needs correct implementation
+    var showingController: Bool! = false //quickfix to avoid reloading when coming back from quantity controller
     var currency: Currency!
     
+    typealias BaseObjectType = CartItem
+
     init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         self.tabBarItem.title = "Cart"
@@ -66,7 +70,7 @@ class CartViewController: BaseViewController, UITableViewDataSource, UITableView
             //for now we assume all the items have the same currency
             let currencyId = items[0].currency
             
-            self.totalView.text = CurrencyManager.sharedCurrencyManager().getFormattedPrice(String(self.getTotalPrice(items)), currencyId: currencyId)
+            self.totalView.text = CurrencyManager.sharedCurrencyManager().getFormattedPrice(self.getTotalPrice(items), currencyId: currencyId)
 
             self.showCartState(false)
             self.tableView.reloadData()
@@ -74,20 +78,7 @@ class CartViewController: BaseViewController, UITableViewDataSource, UITableView
     }
     
     func getTotalPrice(cartItems:CartItem[]) -> Double {
-
-//TODO reduce
-//        ???
-//        why this doesn't compile "Could not find member 'price'", but it appears in autocompletion?
-//        return cartItems.reduce(0, combine: {$0 + ($1.price * $1.quantity)})
-//
-        var total:Double = 0
-        for cartItem in cartItems {
-            let price:Double = NSString(string: cartItem.price).doubleValue
-            let quantity:Double = Double(cartItem.quantity)
-            total = total + (price * quantity)
-        }
-        
-        return total
+        return cartItems.reduce(0.0, combine: {$0 + ($1.price * Double($1.quantity))})
     }
     
     override func viewDidLoad() {
@@ -131,14 +122,7 @@ class CartViewController: BaseViewController, UITableViewDataSource, UITableView
     }
     
     func adjustLayout() {
-    
         self.navigationController.navigationBar.translucent = false;
-    //    self.navigationController.toolbar.translucent = NO;
-    //    self.tabBarController.tabBar.translucent = NO;
-    
-    //    if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
-    //    self.edgesForExtendedLayout = UIRectEdgeNone;
-    
     
         let screenBounds: CGRect = UIScreen.mainScreen().bounds
     
@@ -148,8 +132,7 @@ class CartViewController: BaseViewController, UITableViewDataSource, UITableView
             + CGRectGetHeight(self.buyView.frame))
     
         self.tableView.frame = CGRectMake(0, CGRectGetHeight(self.buyView.frame), self.tableView.frame.size.width, h)
-    ;
-    //    self.tableView.contentInset = UIEdgeInsetsMake(0., 0., CGRectGetHeight(self.navigationController.navigationBar.frame) + CGRectGetHeight(self.tabBarController.tabBar.frame) + CGRectGetHeight(self.buyView.frame), 0);
+
     }
     
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
@@ -207,15 +190,10 @@ class CartViewController: BaseViewController, UITableViewDataSource, UITableView
         
         let quantities:Int[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
         
-        let cartItemsForQuantitiesDialog:CartQuantityItem[] = self.wrapQuantityItemsForDialog(quantities)
+        let cartItemsForQuantitiesDialog:SingleSelectionItem[] = self.wrapQuantityItemsForDialog(quantities)
         
+//        let selectQuantityController:SingleSelectionViewController<CartItem> = SingleSelectionViewController<CartItem>(style: UITableViewStyle.Plain)
         let selectQuantityController:SingleSelectionViewController = SingleSelectionViewController(style: UITableViewStyle.Plain)
-        
-
-        //FIXME
-//        println(cartItemsForQuantitiesDialog.count) //11
-//        var test:SingleSelectionItem[] = cartItemsForQuantitiesDialog as SingleSelectionItem[]
-//        println(test.count) //this prints 318701632
         
         selectQuantityController.items = cartItemsForQuantitiesDialog
         
@@ -228,11 +206,12 @@ class CartViewController: BaseViewController, UITableViewDataSource, UITableView
         self.presentModalViewController(selectQuantityController, animated: true)
     }
     
-    func wrapQuantityItemsForDialog(quantities: Int[]) -> CartQuantityItem[] {
-        return quantities.map {(let q) -> CartQuantityItem in CartQuantityItem(quantity: q)}
+    func wrapQuantityItemsForDialog(quantities: Int[]) -> SingleSelectionItem[] {
+        return quantities.map {(let q) -> SingleSelectionItem in CartQuantityItem(quantity: q)
+            as SingleSelectionItem //TOOD check if it works correctly without casting (specially resulting array count)
+        }
     }
 
-    
     @IBAction func onBuyPress(sender: UIButton) {
         let paymentViewController:PaymentViewController = PaymentViewController(nibName:"CSPaymentViewController", bundle:nil)
         paymentViewController.totalValue = self.getTotalPrice(items)
@@ -244,9 +223,9 @@ class CartViewController: BaseViewController, UITableViewDataSource, UITableView
     }
 
     func selectedItem(item: SingleSelectionItem, baseObject:AnyObject) {
-        var cartItem = baseObject as CartItem //TODO use generics
         
-        let quantity:Int = item.getWrappedItem() as Int //TODO use generics
+        var cartItem = baseObject as CartItem //FIXME insufficient generics, have to cast
+        let quantity:Int = item.getWrappedItem() as Int  //FIXME insufficient generics, have to cast
         
         self.setProgressHidden(false, transparent:true)
         

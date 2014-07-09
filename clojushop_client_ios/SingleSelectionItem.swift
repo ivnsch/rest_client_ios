@@ -11,7 +11,9 @@ import Foundation
 
 protocol SingleSelectionItem {
     
-//    typealias WrappedItemType //TODO
+    //For some reason type alias here doesn't work (see CartQuantityItem and CartViewController)
+    //when we use generics the caller will say getWrappedItem() doesn't exist  FIXME?
+//    typealias WrappedItemType
 
     func getLabel() -> String
     

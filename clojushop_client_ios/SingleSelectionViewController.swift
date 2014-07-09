@@ -9,12 +9,13 @@
 import UIKit
 
 class SingleSelectionViewController: UITableViewController {
+//class SingleSelectionViewController<T>: UITableViewController {
 
-      //FIXME the assignement from CartQuantityItem[] to SingleSelectionItem[] causes items.count to be 318701632
-//    var items: SingleSelectionItem[]!
-    var items: CartQuantityItem[]!
+    var items: SingleSelectionItem[]!
     
     var delegate: SingleSelectionControllerDelegate!
+    
+//    var baseObject: T
     var baseObject: AnyObject!
 
     init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
