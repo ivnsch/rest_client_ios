@@ -15,9 +15,13 @@ class LoginRegisterViewController:BaseViewController {
     
     @IBOutlet var viewWorkaround:UIView! //FIXME workaround didnt work
     
-    init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!)  {
+    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!)  {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         self.tabBarItem.title = "Login / Register"
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func fillWithTestData() {
@@ -70,15 +74,15 @@ class LoginRegisterViewController:BaseViewController {
     }
     @IBAction func register(sender: UIButton) {
         let registerController:RegisterViewController = RegisterViewController(nibName: "RegisterViewController", bundle: nil)
-        self.navigationController.pushViewController(registerController, animated: true)
+        self.navigationController?.pushViewController(registerController, animated: true)
     }
         
     func showUserAccountTab(user:User) {
         let userAccountController: UserAccountViewController = UserAccountViewController(nibName: "UserAccountViewController", bundle: nil)
         userAccountController.user = user
-        self.navigationController.tabBarItem.title = "User account"
-        self.navigationController.pushViewController(userAccountController, animated: true)
-        self.navigationController.navigationBarHidden = true
+        self.navigationController?.tabBarItem.title = "User account"
+        self.navigationController?.pushViewController(userAccountController, animated: true)
+        self.navigationController?.navigationBarHidden = true
     }
     
     

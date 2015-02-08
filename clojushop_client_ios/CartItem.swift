@@ -25,8 +25,8 @@ let JSON_KEY_CART_DETAILS = "pd"
 @objc
 class CartItem {
     
-    let id:String, name:String, descr:String, seller:String, price:Double, currency:String, imgList:String, imgDetails:String
-    var quantity:Int
+    let id:String!, name:String!, descr:String!, seller:String!, price:Double!, currency:String!, imgList:String!, imgDetails:String!
+    var quantity:Int!
     
     init(id:String, name:String, descr:String, seller:String, price:Double, currency:String, quantity:Int, imgList:String, imgDetails:String) {
         
@@ -40,7 +40,7 @@ class CartItem {
         self.imgList = imgList
         self.imgDetails = imgDetails
     }
-    
+
     convenience init(dict: NSDictionary) {
         
         let priceDictionary: NSDictionary = dict.objectForKey(JSON_KEY_CART_ITEM_PRICE) as NSDictionary
@@ -68,10 +68,11 @@ class CartItem {
     }
     
     class func createFromDictArray (dictArray: NSArray) -> Array<CartItem> {
-        var itemsArray:CartItem[] = []
+        var itemsArray:[CartItem] = []
         
         for dict: AnyObject in dictArray {
-            itemsArray += CartItem(dict: dict as NSDictionary)
+            let a:NSDictionary = dict as NSDictionary
+            itemsArray.append(CartItem(dict: a))
         }
         return itemsArray
     }

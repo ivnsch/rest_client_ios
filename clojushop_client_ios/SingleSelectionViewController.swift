@@ -11,19 +11,23 @@ import UIKit
 class SingleSelectionViewController: UITableViewController {
 //class SingleSelectionViewController<T>: UITableViewController {
 
-    var items: SingleSelectionItem[]!
+    var items: [SingleSelectionItem]!
     
     var delegate: SingleSelectionControllerDelegate!
     
 //    var baseObject: T
     var baseObject: AnyObject!
 
-    init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
-    init(style: UITableViewStyle)  {
+    override init(style: UITableViewStyle)  {
         super.init(style: style)
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
@@ -37,20 +41,20 @@ class SingleSelectionViewController: UITableViewController {
         return items.count
     }
     
-    override func tableView(tableView:UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell! {
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellIdentifier:String = "Cell"
-        
+
         println(self.tableView)
-        
-         //FIXME this causes bad instruction error, but works in objc. 
+
+         //FIXME this causes bad instruction error, but works in objc.
          //recycling temporarily disabled. for quantities view controller this is not very important, since we have only a few items
 //        var cell:UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as UITableViewCell
-//        
+//
 //        if (cell == nil) {
             var cell = UITableViewCell(style:UITableViewCellStyle.Default, reuseIdentifier:cellIdentifier)
 //        }
-        
-        cell.textLabel.text = items[indexPath.row].getLabel()
+
+        cell.textLabel?.text = items[indexPath.row].getLabel()
         
         return cell;
     }
@@ -63,7 +67,7 @@ class SingleSelectionViewController: UITableViewController {
             delegate.selectedItem(item, baseObject: baseObject)
         }
     
-        self.dismissModalViewControllerAnimated(true)
+        self.dismissViewControllerAnimated(false, completion:nil)
     }
 
 

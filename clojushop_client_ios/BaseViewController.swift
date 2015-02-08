@@ -12,19 +12,28 @@ class BaseViewController: UIViewController {
     var opaqueIndicator: ProgressIndicator!
     var transparentIndicator: ProgressIndicator!
     
-    init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func getProgressBarBounds() -> CGRect {
         var bounds:CGRect = UIScreen.mainScreen().bounds
         
-        let viewSize = self.tabBarController.view.frame.size
-        let tabBarSize = self.tabBarController.tabBar.frame.size
-        
-        bounds.size.height = viewSize.height - tabBarSize.height
-        
-        return bounds
+        if let tabBarController = self.tabBarController {
+            let viewSize = tabBarController.view.frame.size
+            let tabBarSize = tabBarController.tabBar.frame.size
+            
+            bounds.size.height = viewSize.height - tabBarSize.height
+            
+            return bounds
+            
+        } else {
+            return CGRectZero
+        }
     }
     
     func initProgressIndicator() {
@@ -46,7 +55,7 @@ class BaseViewController: UIViewController {
         return true //iOS 5- compatibility
     }
     
-    override func viewWillUnload() {
+    deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     

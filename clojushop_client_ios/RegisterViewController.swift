@@ -50,7 +50,7 @@ class RegisterViewController: BaseViewController {
         DataStore.sharedDataStore().register(loginName, email: email, password: loginPW, successHandler: {() -> Void in
             
             self.setProgressHidden(true)
-            self.navigationController.popToRootViewControllerAnimated(true)
+            self.navigationController?.popToRootViewControllerAnimated(true)
             
             }, failureHandler: {(Int) -> Bool in self.setProgressHidden(true); return false})
     }

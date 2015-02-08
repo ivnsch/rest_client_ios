@@ -17,8 +17,12 @@ class PaymentViewController : UIViewController, STPViewDelegate {
     var currency:Currency!
     var totalValue:Double!
     
-    init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
@@ -39,7 +43,7 @@ class PaymentViewController : UIViewController, STPViewDelegate {
     }
     
     func stripeView(view:STPView, card:PKCard, isValid:Bool) {
-        self.navigationItem.rightBarButtonItem.enabled = isValid
+        self.navigationItem.rightBarButtonItem?.enabled = isValid
     }
     
     @IBAction func save(sender: AnyObject) {
@@ -48,8 +52,8 @@ class PaymentViewController : UIViewController, STPViewDelegate {
         self.checkoutView.createToken({(token:STPToken!, error:NSError!) -> Void in
             MBProgressHUD.hideHUDForView(self.view, animated: true)
             
-            if error {
-                self.hasError(error)
+            if let e = error {
+                self.hasError(e)
             } else {
                 self.hasToken(token)
             }
@@ -61,12 +65,11 @@ class PaymentViewController : UIViewController, STPViewDelegate {
     }
     
     func hasToken(token: STPToken) {
-        
-        DataStore.sharedDataStore().pay(token.tokenId, value: String(totalValue), currency: "eur", successHandler: {() -> Void in
+        DataStore.sharedDataStore().pay(token.tokenId, value: String(format:"%f", totalValue), currency: "eur", successHandler: {() -> Void in
             
             NSNotificationCenter.defaultCenter().postNotificationName("ClearLocalCart", object: nil)
             
-            self.navigationController.popViewControllerAnimated(true)
+            self.navigationController?.popViewControllerAnimated(true)
             
             }, failureHandler: {(Int) -> Bool in
                 

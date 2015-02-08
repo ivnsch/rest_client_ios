@@ -22,15 +22,19 @@ class CartViewController: BaseViewController, UITableViewDataSource, UITableView
     
     var quantityPickerPopover: UIPopoverController!
     
-    var items: CartItem[] = []
+    var items: [CartItem] = []
     var showingController: Bool! = false //quickfix to avoid reloading when coming back from quantity controller
     var currency: Currency!
     
     typealias BaseObjectType = CartItem
 
-    init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         self.tabBarItem.title = "Cart"
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func clearCart() {
@@ -38,11 +42,11 @@ class CartViewController: BaseViewController, UITableViewDataSource, UITableView
         self.tableView.reloadData()
         
         
-        var a : String[] = []
+        var a : [String] = []
         a.removeAll(keepCapacity: false)
     }
     
-    func onRetrievedItems(items: CartItem[]) {
+    func onRetrievedItems(items: [CartItem]) {
         self.items = items
         
         if (items.count == 0) {
@@ -77,7 +81,7 @@ class CartViewController: BaseViewController, UITableViewDataSource, UITableView
         }
     }
     
-    func getTotalPrice(cartItems:CartItem[]) -> Double {
+    func getTotalPrice(cartItems:[CartItem]) -> Double {
         return cartItems.reduce(0.0, combine: {$0 + ($1.price * Double($1.quantity))})
     }
     
@@ -106,7 +110,7 @@ class CartViewController: BaseViewController, UITableViewDataSource, UITableView
         
         DataStore.sharedDataStore().getCart(
             
-            {(items:CartItem[]!) -> Void in
+            {(items:[CartItem]!) -> Void in
             
                 self.setProgressHidden(true, transparent: false)
                 self.onRetrievedItems(items)
@@ -122,24 +126,30 @@ class CartViewController: BaseViewController, UITableViewDataSource, UITableView
     }
     
     func adjustLayout() {
-        self.navigationController.navigationBar.translucent = false;
-    
-        let screenBounds: CGRect = UIScreen.mainScreen().bounds
-    
-        let h:Float = screenBounds.size.height -
-            (CGRectGetHeight(self.tabBarController.tabBar.frame)
-            + CGRectGetHeight(self.navigationController.navigationBar.frame)
-            + CGRectGetHeight(self.buyView.frame))
-    
-        self.tableView.frame = CGRectMake(0, CGRectGetHeight(self.buyView.frame), self.tableView.frame.size.width, h)
-
+        
+        if let navigationController = self.navigationController {
+            
+            navigationController.navigationBar.translucent = false;
+            
+            let screenBounds: CGRect = UIScreen.mainScreen().bounds
+            
+            if let tabBarController = self.tabBarController {
+                
+                let h:CGFloat = screenBounds.size.height -
+                    (CGRectGetHeight(tabBarController.tabBar.frame)
+                        + CGRectGetHeight(navigationController.navigationBar.frame)
+                        + CGRectGetHeight(self.buyView.frame))
+                
+                self.tableView.frame = CGRectMake(0, CGRectGetHeight(self.buyView.frame), self.tableView.frame.size.width, h)
+            }
+        }
     }
     
-    func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
 
-    func tableView(tableView:UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell! {
+    func tableView(tableView:UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellIdentifier:String = "CartItemCell"
         
         let cell: CartItemCell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as CartItemCell
@@ -159,7 +169,7 @@ class CartViewController: BaseViewController, UITableViewDataSource, UITableView
         cell.controller = self
         cell.tableView = self.tableView
         
-        cell.productImg.setImageWithURL(NSURL.URLWithString(item.imgList))
+        cell.productImg.setImageWithURL(NSURL(string: item.imgList))
         
         return cell
     }
@@ -188,9 +198,9 @@ class CartViewController: BaseViewController, UITableViewDataSource, UITableView
     func setQuantity(sender: AnyObject, atIndexPath ip:NSIndexPath) {
         let selectedCartItem:CartItem = items[ip.row]
         
-        let quantities:Int[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+        let quantities:[Int] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
         
-        let cartItemsForQuantitiesDialog:SingleSelectionItem[] = self.wrapQuantityItemsForDialog(quantities)
+        let cartItemsForQuantitiesDialog:[SingleSelectionItem] = self.wrapQuantityItemsForDialog(quantities)
         
 //        let selectQuantityController:SingleSelectionViewController<CartItem> = SingleSelectionViewController<CartItem>(style: UITableViewStyle.Plain)
         let selectQuantityController:SingleSelectionViewController = SingleSelectionViewController(style: UITableViewStyle.Plain)
@@ -203,10 +213,10 @@ class CartViewController: BaseViewController, UITableViewDataSource, UITableView
         selectQuantityController.baseObject = selectedCartItem
         
         self.showingController = true
-        self.presentModalViewController(selectQuantityController, animated: true)
+        self.presentViewController(selectQuantityController, animated: true, completion: nil)
     }
     
-    func wrapQuantityItemsForDialog(quantities: Int[]) -> SingleSelectionItem[] {
+    func wrapQuantityItemsForDialog(quantities: [Int]) -> [SingleSelectionItem] {
         return quantities.map {(let q) -> SingleSelectionItem in CartQuantityItem(quantity: q)
             as SingleSelectionItem //TOOD check if it works correctly without casting (specially resulting array count)
         }
@@ -219,7 +229,7 @@ class CartViewController: BaseViewController, UITableViewDataSource, UITableView
 //        TODO
 //        paymentViewController.currency = [CSCurrency alloc]initWithId:<#(int)#> format:<#(NSString *)#>;
         
-        self.navigationController.pushViewController(paymentViewController, animated: true)
+        self.navigationController?.pushViewController(paymentViewController, animated: true)
     }
 
     func selectedItem(item: SingleSelectionItem, baseObject:AnyObject) {

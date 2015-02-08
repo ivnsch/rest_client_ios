@@ -27,6 +27,7 @@
 		EB4695881944800A003AA715 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4695871944800A003AA715 /* RegisterViewController.swift */; };
 		EB46958A19448854003AA715 /* UserAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB46958919448854003AA715 /* UserAccountViewController.swift */; };
 		EB4CB59C1940ED9A0092457E /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4CB59B1940ED9A0092457E /* Product.swift */; };
+		EB5567C31A87AA0D00CD3EC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5567C21A87AA0D00CD3EC6 /* AppDelegate.swift */; };
 		EB6E2DB3193142F400ED6B18 /* CartItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB6E2D93193142F400ED6B18 /* CartItemCell.xib */; };
 		EB6E2DB8193142F400ED6B18 /* LoginRegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB6E2D9B193142F400ED6B18 /* LoginRegisterViewController.xib */; };
 		EB6E2DBB193142F400ED6B18 /* CSProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB6E2DA0193142F400ED6B18 /* CSProductCell.xib */; };
@@ -45,7 +46,6 @@
 		EB93DEF71938D1D100DBC33A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB93DEF61938D1D100DBC33A /* Security.framework */; };
 		EB93DEFB1938D47400DBC33A /* CSPaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB93DEFA1938D47400DBC33A /* CSPaymentViewController.xib */; };
 		EB93DF4F193E51BE00DBC33A /* CSProductDetailsViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB93DF4E193E51BE00DBC33A /* CSProductDetailsViewController~ipad.xib */; };
-		EBB509EF194B8223008BDC67 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB509EE194B8223008BDC67 /* AppDelegate.swift */; };
 		EBD0B52E194232CE00E862C4 /* CartItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0B52D194232CE00E862C4 /* CartItem.swift */; };
 		EBD0B5301942558A00E862C4 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0B52F1942558A00E862C4 /* Currency.swift */; };
 		EBD0B532194257F800E862C4 /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0B531194257F800E862C4 /* ProductCell.swift */; };
@@ -98,6 +98,7 @@
 		EB4695871944800A003AA715 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		EB46958919448854003AA715 /* UserAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAccountViewController.swift; sourceTree = "<group>"; };
 		EB4CB59B1940ED9A0092457E /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		EB5567C21A87AA0D00CD3EC6 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB6E2D93193142F400ED6B18 /* CartItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CartItemCell.xib; sourceTree = "<group>"; };
 		EB6E2D9B193142F400ED6B18 /* LoginRegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginRegisterViewController.xib; sourceTree = "<group>"; };
 		EB6E2DA0193142F400ED6B18 /* CSProductCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CSProductCell.xib; sourceTree = "<group>"; };
@@ -117,7 +118,6 @@
 		EB93DEF61938D1D100DBC33A /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		EB93DEFA1938D47400DBC33A /* CSPaymentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CSPaymentViewController.xib; sourceTree = "<group>"; };
 		EB93DF4E193E51BE00DBC33A /* CSProductDetailsViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "CSProductDetailsViewController~ipad.xib"; sourceTree = "<group>"; };
-		EBB509EE194B8223008BDC67 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ../../tmp/tmp/tmp/AppDelegate.swift; sourceTree = "<group>"; };
 		EBD0B52D194232CE00E862C4 /* CartItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartItem.swift; sourceTree = "<group>"; };
 		EBD0B52F1942558A00E862C4 /* Currency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		EBD0B531194257F800E862C4 /* ProductCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
@@ -238,7 +238,7 @@
 		EB430B1D1931414F0012B27E /* clojushop_client_ios */ = {
 			isa = PBXGroup;
 			children = (
-				EBB509EE194B8223008BDC67 /* AppDelegate.swift */,
+				EB5567C21A87AA0D00CD3EC6 /* AppDelegate.swift */,
 				EB93DEF21938CF6E00DBC33A /* Payment */,
 				EB20050C19377110006F3832 /* Currency */,
 				EB2004EE19366806006F3832 /* CoreData */,
@@ -542,10 +542,10 @@
 				EBFCAB591947832E00A82A6F /* DataStore.swift in Sources */,
 				EBF4C0BB194363CE00AF4FB2 /* ProductDetailViewController.swift in Sources */,
 				EBD0B532194257F800E862C4 /* ProductCell.swift in Sources */,
+				EB5567C31A87AA0D00CD3EC6 /* AppDelegate.swift in Sources */,
 				EB4695881944800A003AA715 /* RegisterViewController.swift in Sources */,
 				EBF4C0BD1943691E00AF4FB2 /* ListViewControllerDelegate.swift in Sources */,
 				EB81EB451944DB2E003FBCCB /* CartQuantityItem.swift in Sources */,
-				EBB509EF194B8223008BDC67 /* AppDelegate.swift in Sources */,
 				EB430B2B1931414F0012B27E /* clojushop_client_ios.xcdatamodeld in Sources */,
 				EBD0B52E194232CE00E862C4 /* CartItem.swift in Sources */,
 				EB4CB59C1940ED9A0092457E /* Product.swift in Sources */,

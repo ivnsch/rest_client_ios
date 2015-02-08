@@ -80,19 +80,19 @@ class Product {
     }
     
     class func createFromDictArray (dictArray: NSArray) -> Array<Product> {
-        var productsArray:Product[] = []
+        var productsArray:[Product] = []
         
         for dict: AnyObject in dictArray {
-            productsArray += Product(dict: dict as NSDictionary)
+            productsArray.append(Product(dict: dict as NSDictionary))
         }
         return productsArray
     }
     
     class func createFromCDs (productCDs: NSArray) -> Array<Product> {
-        var productsArray:Product[] = []
+        var productsArray:[Product] = []
         
         for productCD: AnyObject in productCDs {
-            productsArray += self.createFromCD(productCD as ProductCD)
+            productsArray.append(self.createFromCD(productCD as ProductCD))
         }
         return productsArray
     }

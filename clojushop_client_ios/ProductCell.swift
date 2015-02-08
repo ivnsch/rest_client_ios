@@ -12,9 +12,9 @@ import UIKit
 @objc
 class ProductCell : UITableViewCell {
     
-    @IBOutlet var productName:UILabel
-    @IBOutlet var productDescr:UILabel
-    @IBOutlet var productPrice:UILabel
-    @IBOutlet var productBrand:UILabel
-    @IBOutlet var productImg:UIImageView
+    @IBOutlet var productName:UILabel!
+    @IBOutlet var productDescr:UILabel!
+    @IBOutlet var productPrice:UILabel!
+    @IBOutlet var productBrand:UILabel!
+    @IBOutlet var productImg:UIImageView!
 }

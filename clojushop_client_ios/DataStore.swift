@@ -29,13 +29,13 @@ class DataStore {
         return DataStore()
     }
     
-    func getProducts(start: Int, size: Int, successHandler: (Product[]) -> (), failureHandler: (Int) -> Bool) {
+    func getProducts(start: Int, size: Int, successHandler: ([Product]) -> (), failureHandler: (Int) -> Bool) {
         var returnedFromCache = false
         
         self.dataStoreLocal.getProducts(start, size: size,
-            successHandler: {(productsCD: AnyObject[]) -> () in
+            successHandler: {(productsCD: [AnyObject]) -> () in
                 if productsCD.count > 0 {
-                    let products:Product[] = Product.createFromCDs(productsCD)
+                    let products:[Product] = Product.createFromCDs(productsCD)
                     successHandler(products)
                     
                     returnedFromCache = true
@@ -48,7 +48,7 @@ class DataStore {
                         let productsJSON = response["products"] as NSArray
                         
                         //TODO use md5
-                        let products:Product[] = Product.createFromDictArray(productsJSON)
+                        let products:[Product] = Product.createFromDictArray(productsJSON)
                 
                         self.dataStoreLocal.clearProducts()
                         self.dataStoreLocal.saveProducts(products)
@@ -134,12 +134,12 @@ class DataStore {
             })
     }
     
-    func getCart(successHandler: (cart: CartItem[]) -> (), failureHandler: (Int) -> Bool)  {
+    func getCart(successHandler: (cart: [CartItem]) -> (), failureHandler: (Int) -> Bool)  {
         self.dataStoreRemote.getCart(
             {(response: Dictionary<String, NSObject>) -> () in
                 
                 let cartJSON = response["cart"] as NSArray
-                var cartItems:CartItem[] = CartItem.createFromDictArray(cartJSON)
+                var cartItems:[CartItem] = CartItem.createFromDictArray(cartJSON)
                 
                 successHandler(cart: cartItems)
                 

@@ -10,15 +10,19 @@ import Foundation
 
 class ProductListViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var products:Product[] = []
+    var products:[Product] = []
     
     @IBOutlet var tableView:UITableView!
     
     var detailsViewController:ProductDetailViewController!
     
-    init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         self.title = "Clojushop client"
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
@@ -34,14 +38,14 @@ class ProductListViewController: BaseViewController, UITableViewDataSource, UITa
         
         DataStore.sharedDataStore().getProducts(0, size: 4, successHandler:
             
-            {(products:Product[]!) -> Void in
+            {(products:[Product]!) -> Void in
                 self.setProgressHidden(true)
                 self.onRetrievedProducts(products)
                 },
             failureHandler: {(Int) -> Bool in return false})
     }
     
-    func onRetrievedProducts(products:Product[]) {
+    func onRetrievedProducts(products:[Product]) {
         self.products = products
         tableView.reloadData()
     }
@@ -55,18 +59,18 @@ class ProductListViewController: BaseViewController, UITableViewDataSource, UITa
         
         let product = products[indexPath.row]
         
-        if !self.splitViewController {
+        if self.splitViewController == nil {
             let detailsViewController:ProductDetailViewController = ProductDetailViewController(nibName: "CSProductDetailsViewController", bundle: nil)
             
             detailsViewController.product = product
             detailsViewController.listViewController(product)
-            navigationController.pushViewController(detailsViewController, animated: true)
+            navigationController?.pushViewController(detailsViewController, animated: true)
         } else {
             detailsViewController.listViewController(product)
         }
     }
     
-    func tableView(tableView:UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell! {
+    func tableView(tableView:UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellIdentifier:String = "CSProductCell"
         let cell:ProductCell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as ProductCell
         
@@ -78,7 +82,7 @@ class ProductListViewController: BaseViewController, UITableViewDataSource, UITa
         
         cell.productPrice.text = CurrencyManager.sharedCurrencyManager().getFormattedPrice(product.price, currencyId: product.currency)
         
-        cell.productImg.setImageWithURL(NSURL.URLWithString(product.imgList))
+        cell.productImg.setImageWithURL(NSURL(string: product.imgList))
         
         return cell
     }
@@ -88,16 +92,20 @@ class ProductListViewController: BaseViewController, UITableViewDataSource, UITa
     }
     
     func transferBarButtonToViewController(vc:UIViewController) {
-        let nvc:UINavigationController = self.splitViewController.viewControllers[0] as UINavigationController
-        let currentVC:UIViewController = nvc.viewControllers[0] as UIViewController
         
-        if vc == currentVC {return}
-        
-        let currentVCItem:UINavigationItem = currentVC.navigationItem
-        
-        vc.navigationItem.setLeftBarButtonItem(currentVCItem.leftBarButtonItem, animated: true)
-        
-        currentVCItem.setLeftBarButtonItem(nil, animated: false)
+        if let splitViewController = self.splitViewController {
+            
+            let nvc:UINavigationController = splitViewController.viewControllers[0] as UINavigationController
+            let currentVC:UIViewController = nvc.viewControllers[0] as UIViewController
+            
+            if vc == currentVC {return}
+            
+            let currentVCItem:UINavigationItem = currentVC.navigationItem
+            
+            vc.navigationItem.setLeftBarButtonItem(currentVCItem.leftBarButtonItem, animated: true)
+            
+            currentVCItem.setLeftBarButtonItem(nil, animated: false)
+        }
     }
     
 }

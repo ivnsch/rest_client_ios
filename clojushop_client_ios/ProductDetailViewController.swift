@@ -10,22 +10,26 @@ import Foundation
 
 class ProductDetailViewController: BaseViewController, ListViewControllerDelegate, UISplitViewControllerDelegate {
         
-    @IBOutlet var productNameLabel:UILabel
-    @IBOutlet var productBrandLabel:UILabel
-    @IBOutlet var productPriceLabel:UILabel
-    @IBOutlet var productLongDescrLabel:UILabel
+    @IBOutlet var productNameLabel:UILabel!
+    @IBOutlet var productBrandLabel:UILabel!
+    @IBOutlet var productPriceLabel:UILabel!
+    @IBOutlet var productLongDescrLabel:UILabel!
     
-    @IBOutlet var productImageview:UIImageView
+    @IBOutlet var productImageview:UIImageView!
     
-    @IBOutlet var addToCartButton:UIButton
+    @IBOutlet var addToCartButton:UIButton!
     
-    @IBOutlet var pleaseSelectView:UIView
-    @IBOutlet var containerView:UIView
+    @IBOutlet var pleaseSelectView:UIView!
+    @IBOutlet var containerView:UIView!
     
     var product:Product!
     
-    init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!)  {
+    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!)  {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func listViewController(
@@ -50,10 +54,10 @@ class ProductDetailViewController: BaseViewController, ListViewControllerDelegat
         
         productNameLabel.text = product.name
         productBrandLabel.text = product.seller
-        productPriceLabel.text = String(product.price)
+        productPriceLabel.text = String(format:"%.2f", product.price)
         
         productLongDescrLabel.text = product.descr
-        productImageview.setImageWithURL(NSURL.URLWithString(product.imgDetails))
+        productImageview.setImageWithURL(NSURL(string: product.imgDetails))
     }
     
     func splitViewController(svc: UISplitViewController!, aViewController: UIViewController!, button: UIBarButtonItem!) {

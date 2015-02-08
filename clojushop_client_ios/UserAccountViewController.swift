@@ -15,10 +15,14 @@ class UserAccountViewController: BaseViewController {
 
     var user:User!
     
-    init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 
         self.tabBarItem.title = "User account"
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     override func viewDidLoad() {
@@ -52,7 +56,7 @@ class UserAccountViewController: BaseViewController {
     
     
     override func viewDidAppear(animated: Bool) {
-        if !user {
+        if user == nil {
             getUser()
         } else {
             self.initUserViews()
@@ -72,10 +76,10 @@ class UserAccountViewController: BaseViewController {
     
     
     func replaceWithLoginRegisterTab() {
-        self.navigationController.popToRootViewControllerAnimated(true)
-        self.navigationController.setNavigationBarHidden(false, animated: false) //is this necessary?
+        self.navigationController?.popToRootViewControllerAnimated(true)
+        self.navigationController?.setNavigationBarHidden(false, animated: false) //is this necessary?
         
-        self.navigationController.tabBarItem.title = "Login / Register"
+        self.navigationController?.tabBarItem.title = "Login / Register"
     }
 
     @IBAction func onLogoutPress(sender: UIButton) {

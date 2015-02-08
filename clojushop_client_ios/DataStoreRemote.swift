@@ -23,7 +23,7 @@ class DataStoreRemote {
     
     init() {
         let path = NSBundle.mainBundle().pathForResource("Config", ofType: "plist")
-        let config:NSDictionary = NSDictionary(contentsOfFile:path)
+        let config:NSDictionary = NSDictionary(contentsOfFile:path!)!
         
         host = config.objectForKey("host") as String
     }
@@ -43,8 +43,8 @@ class DataStoreRemote {
         * If caller returns true ("consumed"), the error is not being further handled
         * If caller returns false ("not consumed"), the default handling will be activated
         */
-        func localFailureHandler(statusCode:Int) {
-            let localStatusCode = toClientStatusCode(statusCode)
+        let localFailureHandler = {(statusCode:Int) -> () in
+            let localStatusCode = self.toClientStatusCode(statusCode)
             let consumed = requestFailureHandler(localStatusCode)
             if !consumed {
                 self.onRequestError(localStatusCode)
@@ -52,17 +52,18 @@ class DataStoreRemote {
         }
         
         let manager:AFHTTPRequestOperationManager = AFHTTPRequestOperationManager()
-        manager.requestSerializer = AFJSONRequestSerializer()
-        
+//        manager.requestSerializer = AFJSONRequestSerializer()
+        manager.requestSerializer = AFJSONRequestSerializer() as AFHTTPRequestSerializer
 
-        println("Request method: " + method.description + ", url: " + url + ", params: " + params.description)
+
+        println("Request method: \(method.description), url: \(url), params: \(params.description)")
 
         //TODO handle possible error response with html e.g. not found page
         
         //FIXME getting weird error messages when use NSDictionary or Dictionary<String, NSObject> as type of response
         let successHandler = {(operation: AFHTTPRequestOperation!, response: AnyObject!) -> () in
 
-            println("Request response: " + response.description)
+            println("Request response: \(response.description)")
 
             let responseDict = response as Dictionary<String, NSObject>
             
